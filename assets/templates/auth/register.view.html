@@ -1,0 +1,61 @@
+<!--<div class="login-page">-->
+<div class="login-box">
+    <div class="login-logo">
+        <span>Cart<i class="fa fa-shopping-cart"></i>Coins</span>
+        <!--<a href=""><img src="assets/images/logo.jpg" alt="" height="150"></a>-->
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Become a Cart-coins loyal customer</p>
+        <form name="registrationForm" ng-submit="vm.registerCustomer(registrationForm.$valid)" novalidate>
+            <div class="form-group has-feedback" ng-class="{ 'has-error': registrationForm.names.$touched && registrationForm.names.$invalid }">
+                <input type="text" name="names" ng-model="vm.newUser.name" class="form-control" placeholder="Name" required>
+                <div class="help-block" ng-messages="registrationForm.names.$error" ng-show="registrationForm.names.$touched">
+                    <p ng-message="required">Names are Required</p>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-error': registrationForm.email.$touched && registrationForm.email.$invalid }">
+                <input type="email" name="email" ng-model="vm.newUser.email" class="form-control" placeholder="Email" required>
+                <div class="help-block" ng-messages="registrationForm.email.$error" ng-show="registrationForm.email.$touched">
+                    <p ng-message="required">Email is Required</p>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-error': registrationForm.password.$touched && registrationForm.password.$invalid }">
+                <input type="password" name="password" ng-model="vm.newUser.password" class="form-control" placeholder="Password" required>
+                <div class="help-block" ng-messages="registrationForm.password.$error" ng-show="registrationForm.password.$touched">
+                    <p ng-message="required">Password is Required</p>
+                </div>
+            </div>
+            <div class="form-group has-feedback" ng-class="{ 'has-error': registrationForm.passwordConfirm.$touched && registrationForm.passwordConfirm.$invalid }">
+                <input type="password" name="passwordConfirm" ng-model="vm.newUser.passwordConfirm" class="form-control" placeholder="Password confirmation" required>
+                <div class="help-block" ng-messages="registrationForm.passwordConfirm.$error" ng-show="registrationForm.passwordConfirm.$touched">
+                    <p ng-message="required">Password is Required</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="registrationForm.$invalid">Login</button>
+                </div>
+            </div>
+        </form>
+        <br>
+        <a ui-sref="login">Already have an account ?</a>
+        <!--<a ui-sref="register" class="text-center">Nieuw lidmaatschap registreren</a>-->
+
+    </div>
+    <!-- /.login-box-body -->
+    <alert ng-if="vm.alertMessage" type="{{vm.alertMessage.type}}" close="vm.closeAlerts()" dismiss-on-timeout="{{vm.alertMessage.timeout}}">
+        {{ vm.alertMessage.msg }}
+    </alert>
+</div>
+
+<div class="loading-message-container" ng-if="vm.message">
+    <div class="loading-message" class="row">
+        <p ng-cloak class="col col-sm-12 text-center">{{vm.message}}</p>
+        <span class="fa fa-shopping-cart">Cart-Coins</span>
+    </div>
+</div>
+<!-- /.login-box -->
+
+<!--</div>-->

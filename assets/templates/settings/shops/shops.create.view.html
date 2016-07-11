@@ -1,0 +1,72 @@
+<div class="content-header clearfix">
+    <div class="row">
+        <div class="col-xs-6">
+            <h2>Settings</h2>
+        </div>
+        <div class="col-xs-6">
+            <a ui-sref="settings.shops" style="margin-top: 19px;" class="pull-right btn btn-primary uppercase"><i class="fa fa-times"></i>Cancel</a>
+        </div>
+    </div>
+</div>
+<div class="box box-primary">
+    <div class="box-header">
+        <h2 class="box-title">Create Shop</h2>
+    </div>
+        <form role="form" ng-submit="vm.addShop()">
+            <div class="box-body">
+                <div class=" col-xs-6 form-group">
+                    <label for="inputShopName">Shop Name</label>
+                    <input type="text" class="form-control" name="shopname" ng-model="vm.shop.shopname" id="inputShopName" placeholder="Shop name">
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="inputCountry">Country</label>
+                    <input type="text" class="form-control" name="country" ng-model="vm.shop.country" id="inputCountry" placeholder="Country">
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" name="city" ng-model="vm.shop.city" id="inputCity" placeholder="City">
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="inputArea">Area</label>
+                    <input type="text" class="form-control" name="area" ng-model="vm.shop.area" id="inputArea" placeholder="Area">
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="vatNumber">Vat Number</label>
+                    <input type="text" class="form-control" name="vat_number" ng-model="vm.shop.vat_number" id="vatNumber" placeholder="Vat number">
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="inputPhoneNumber">Phone Number</label>
+                    <input type="text" class="form-control" name="phone_number" ng-model="vm.shop.phone_number" id="inputPhoneNumber" placeholder="Phone number">
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" class="form-control" name="email" ng-model="vm.shop.email" id="inputEmail" placeholder="Email">
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="inputWebsite">Website</label>
+                    <input type="text" class="form-control" name="website" ng-model="vm.shop.website" id="inputWebsite" placeholder="Website">
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="inputFacebook">Facebook</label>
+                    <input type="text" class="form-control" name="facebook" ng-model="vm.shop.facebook" id="inputFacebook" placeholder="">
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label for="inputType">Business Type</label>
+                    <select class="form-control" name="businessType" ng-model="vm.shop.businessType" id="inputType" style="width: 100%;">
+                        <option>Choose business type</option>
+                        <option ng-repeat="type in vm.businessTypes" value="{{type.id}}">{{type.name}}</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 form-group">
+                    <label for="inputOwner">Owner's Email</label>
+                    <input type="email" class="form-control" name="owner" ng-model="vm.shop.owner" id="inputOwner" placeholder="">
+                </div>
+
+
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>

@@ -1,0 +1,27 @@
+<!-- Top header. contains sub menu -->
+<header class="main-header"></header>
+<!-- Left side column. contains the sidebar -->
+<aside class="main-sidebar" ng-include="'assets/templates/partials/sidebar.left.partial.html'"></aside>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" ui-view ng-if="!isLoading"></div>
+<div class="content-wrapper" ng-if="isLoading">
+    <div class="loading-spinner">
+        <div class="loading-spinner-content">
+            <span class="fa fa-shopping-cart"></span>
+            <!--<img src="assets/images/logo-small.jpg" alt="">-->
+            <p>{{ 'LOADING_TEXT' | translate }}...</p>
+        </div>
+    </div>
+</div>
+
+<!--<chat id="direct-chat" type="{{rvm.type}}" loading="rvm.loading" title="{{rvm.user.manager.name || 'CHAT_TITLE_TEXT' | translate }}" count="rvm.chat.count()" messages="rvm.chat.messages()" chats="rvm.chat.threads()"></chat>-->
+
+<!--&lt;!&ndash; Application wide alerts &ndash;&gt;-->
+<!--<div class="alert-container">-->
+    <!--<alert ng-repeat="alert in rvm.alerts | limitTo:1" type="{{alert.type}}" close="rvm.closeAlert(index)" dismiss-on-timeout="{{alert.timeout}}">{{ alert.msg }}</alert>-->
+<!--</div>-->
+
+<footer class="main-footer">
+    <strong>Copyright &copy; 2016-2017 <a href="http://cartcoins.com">Cart coins</a>.</strong>
+</footer>
+

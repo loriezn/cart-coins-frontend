@@ -1,0 +1,47 @@
+<div class="content">
+    <div class="content-header">
+        <h3><i class="fa fa-gift"></i> Rewards</h3>
+    </div>
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Create Reward</h3>
+        </div>
+        <form role="form">
+        <div class="box-body">
+            <div class=" col-xs-6 form-group">
+                <label for="inputTitle">Title</label>
+                <input type="text" class="form-control" name="title"  id="inputTitle" placeholder="Reward title">
+            </div>
+            <div class=" col-xs-6 form-group">
+                <label for="inputPrice">Price</label>
+                <input type="text" class="form-control" name="price" id="inputPrice" placeholder="Reward price">
+            </div>
+            <div class=" col-xs-12 form-group">
+                <label for="inputDescription">Price</label>
+                <textarea class="textarea" id="inputDescription" placeholder="Reward Description" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px;"></textarea>
+            </div>
+
+            <div class="col-xs-6 form-group">
+                <label>
+                    <input type="checkbox">
+                     Publish
+                </label>
+            </div>
+
+            <div class="col-xs-12 form-group">
+                <label for="image">Upload Image</label>
+                <input type="file" id="image">
+
+                <p class="help-block">Reward Image is optional</p>
+            </div>
+
+        </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $('#inputDescription').wysihtml5();
+</script>

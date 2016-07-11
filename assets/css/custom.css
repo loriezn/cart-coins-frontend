@@ -1,0 +1,23 @@
+html,body{
+    margin: 0;
+    height:100%;
+}
+
+.login-box{
+    color: #fff;
+}
+
+.content-wrapper{
+    min-height: 778px;
+}
+
+/* Layout */
+.wrapper {
+    /*min-height: 100%;
+    position: relative;
+    overflow: hidden;*/
+    width: 100%;
+    min-height: 100%;
+    height: auto !important;
+    position: absolute;
+}

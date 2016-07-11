@@ -1,0 +1,57 @@
+<!--<div class="login-page">-->
+    <div class="login-box">
+        <div class="login-logo">
+            <span>Cart<i class="fa fa-shopping-cart"></i>Coins</span>
+            <!--<a href=""><img src="assets/images/logo.jpg" alt="" height="150"></a>-->
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Login to continue</p>
+            <form name="loginForm" ng-submit="vm.login(loginForm.$valid)" novalidate>
+                <div class="form-group has-feedback" ng-class="{ 'has-error': loginForm.email.$touched && loginForm.email.$invalid }">
+                    <input type="email" name="email" ng-model="vm.user.email" class="form-control" placeholder="Email" required>
+                    <div class="help-block" ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched">
+                        <p ng-message="required">Email is Required</p>
+                    </div>
+                </div>
+                <div class="form-group has-feedback" ng-class="{ 'has-error': loginForm.password.$touched && loginForm.password.$invalid }">
+                    <input type="password" name="password" ng-model="vm.user.password" class="form-control" placeholder="Password" required>
+                    <div class="help-block" ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched">
+                        <p ng-message="required">Password is Required</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <input type="checkbox" ng-model="vm.user.remember" class="icheck" id="remember"  name="remember me" icheck>
+                        <label for="remember">
+                            Remember me
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="loginForm.$invalid">Login</button>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <a ui-sref="passwordreset">Forgot Password ?</a><br>
+            <a ui-sref="register">Don't have an account ?</a>
+            <!--<a ui-sref="register" class="text-center">Nieuw lidmaatschap registreren</a>-->
+
+        </div>
+        <!-- /.login-box-body -->
+        <alert ng-if="vm.alertMessage" type="{{vm.alertMessage.type}}" close="vm.closeAlerts()" dismiss-on-timeout="{{vm.alertMessage.timeout}}">
+            {{ vm.alertMessage.msg }}
+        </alert>
+    </div>
+
+    <div class="loading-message-container" ng-if="vm.message">
+        <div class="loading-message" class="row">
+            <p ng-cloak class="col col-sm-12 text-center">{{vm.message}}</p>
+            <span class="fa fa-shopping-cart">Cart-Coins</span>
+        </div>
+    </div>
+    <!-- /.login-box -->
+
+<!--</div>-->
