@@ -12,7 +12,7 @@
         $stateProvider
     ){
         $stateProvider
-            .state('dashboard.owner',{
+            .state('dashboard.admin',{
                 url:'/owner',
                 parent:'dashboard',
                 controller:'DashboardOwnerCtrl',

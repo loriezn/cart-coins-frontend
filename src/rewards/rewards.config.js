@@ -28,6 +28,30 @@
                 controller:'NewRewardsCtrl as vm',
                 parent:'app',
                 templateUrl:'assets/templates/rewards/rewards.new.view.html'
-            });
+            })
+
+            .state('rewards.details',{
+                url:'/rewards/details/{rewardId}',
+                controller:'RewardDetailsCtrl as vm',
+                parent:'app',
+                templateUrl:'assets/templates/rewards/rewards.details.view.html',
+                resolve:{
+                    RewardsResourceFactory:'RewardsResourceFactory',
+                    'rewardsDetails':function(RewardsResourceFactory,$stateParams){
+                        return RewardsResourceFactory.get($stateParams).$promise;
+                    }
+                }
+            })
+
+            .state('rewards.delete',{
+                url:'/rewards/delete/{rewardId}',
+                resolve:{
+                    RewardsResourceFactory:'RewardsResourceFactory',
+                    'deleteReward':function(RewardsResourceFactory,$state,$stateParams){
+
+                    }
+                }
+
+            })
     }
 })();

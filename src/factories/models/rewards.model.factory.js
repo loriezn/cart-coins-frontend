@@ -15,6 +15,7 @@
         function Reward(data){
 
             data = data || {};
+            this.id = data.id || null;
             this.title = data.title || null;
             this.description = data.description || null;
             this.imageUrl = data.imageUrl || null ;

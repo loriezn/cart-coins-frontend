@@ -21,8 +21,17 @@
             return uri;
         }
 
+        function getImagePath(path){
+            var protocol = config.api.protocol ? config.api.protocol : $location.protocol(),
+                host = config.api.host ? config.api.host : $location.host(),
+                uri = protocol + '://' + host + path + '/';
+
+            return uri;
+        }
+
         return {
-            getApi: getApi
+            getApi: getApi,
+            getImagePath: getImagePath
         }
 
     }

@@ -12,7 +12,7 @@
         $stateProvider
     ){
         $stateProvider
-            .state('dashboard.clients',{
+            .state('dashboard.client',{
                 url:'/clients',
                 parent:'dashboard',
                 controller:'DashboardClientCtrl',

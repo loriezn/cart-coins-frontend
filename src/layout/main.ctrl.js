@@ -28,6 +28,7 @@
         rvm.isOwner = (AuthService.getUser().role === 'admin'? true : false);
         rvm.isMerchant = (AuthService.getUser().role === 'merchant' ? true :false);
         rvm.isClient  = (AuthService.getUser().role === 'client' ? true : false);
+        rvm.role = AuthService.getUser().role;
         /* Save Current User */
         StorageService.Local.setObject('cartcoinsUser',rvm.user);
 

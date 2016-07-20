@@ -9,6 +9,7 @@
         'ngResource',
         'ngMessages',
         'ngCookies',
+        'ngAnimate',
         'validation.match',
         'angularMoment',
         'angular-jsvat',
@@ -17,6 +18,9 @@
         'angular-cache',
         'angular-loading-bar',
         'monospaced.qrcode',
+        'textAngular',
+        'ngSanitize',
+        'ngMaterial',
         //Modules
         'app.auth',
         'app.dashboard',
@@ -117,8 +121,9 @@
             api:{
                 protocol: secure ? 'https' : 'http',
                 host: "cartcoins.api.local/",
-                path: "/api/v1/"
-            }
+                path: "/api/v1/",
+            },
+            rewardImagePath:'RewardImageDirectory'
         });
 
 })();
@@ -190,7 +195,7 @@
         switch ($state.current.name)
         {
             case 'login':
-                AuthService.skipIfAuthenticated('dashboard.clients');
+                AuthService.skipIfAuthenticated('dashboard.client');
                 vm.user = {
                     name:null,
                     email:null,
@@ -200,7 +205,7 @@
 
                 break;
             case 'register':
-                AuthService.skipIfAuthenticated('dashboard.clients');
+                AuthService.skipIfAuthenticated('dashboard.client');
                 vm.newUser = {
                   name:null,
                   email:null,
@@ -240,11 +245,11 @@
             $auth.setToken(response);
            var loggedUser =  AuthService.getUser();
             if(loggedUser.role === 'admin'){
-                $state.go('dashboard.owner')
+                $state.go('dashboard.admin')
             }else if(loggedUser.role === 'merchant'){
                 $state.go('dashboard.merchant')
             }else{
-                $state.go('dashboard.clients');
+                $state.go('dashboard.client');
             }
 
 
@@ -364,6 +369,38 @@ angular.module('app').directive('header',function(){
        }
    };
 });
+(function(){
+    'use strict';
+
+    angular.module('app')
+        .directive('errSrc',function(){
+            return{
+                link:function(scope,element,attrs){
+                    element.bind('error', function(){
+                        if(attrs.src != attrs.errSrc){
+                            attrs.$set('src',attrs.errSrc);
+                        }
+                    });
+                }
+            }
+        });
+})();
+angular.module('app').directive('fileModel',['$parse',function($parse){
+    return{
+        restrict : 'A',
+        link:function(scope,element,attrs){
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change',function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                })
+            });
+
+        }
+    }
+}]);
 angular.module('app').directive('sidebar', function(){
     return {
         restrict: 'C',
@@ -437,6 +474,7 @@ angular.module('app').directive('sidebar', function(){
         rvm.isOwner = (AuthService.getUser().role === 'admin'? true : false);
         rvm.isMerchant = (AuthService.getUser().role === 'merchant' ? true :false);
         rvm.isClient  = (AuthService.getUser().role === 'client' ? true : false);
+        rvm.role = AuthService.getUser().role;
         /* Save Current User */
         StorageService.Local.setObject('cartcoinsUser',rvm.user);
 
@@ -486,9 +524,24 @@ angular.module('app').directive('sidebar', function(){
     ){
         $log.info('RewardsResourceFactory');
 
-       var url = UriService.getApi('rewards');
-
-        return $resource(url);
+        var url = UriService.getApi('rewards/:rewardId');
+        var paramDefaults = {
+            rewardId : '@rewardId'
+        };
+        var fd = new FormData();
+        var actions = {
+            save:{
+                method:'POST',
+                transformRequest:function(data){
+                    angular.forEach(data,function(key,value){
+                        fd.append(value,key);
+                    });
+                    return fd;
+                },
+                headers: {'Content-type':undefined}
+            }
+        };
+        return $resource(url,paramDefaults,actions);
     }
 })();
 ;(function(){
@@ -553,13 +606,146 @@ angular.module('app').directive('sidebar', function(){
         .controller('NewRewardsCtrl',NewRewardsCtrl);
 
     NewRewardsCtrl.$inject =[
-        '$log'
+        '$log',
+        'RewardsResourceFactory',
+        '$state'
     ];
 
     function NewRewardsCtrl(
-        $log
+        $log,
+        RewardsResourceFactory,
+        $state
     ){
         $log.info('NewRewardsCtrl');
+        var vm = this;
+        vm.newReward = {
+            title:null,
+            description:null,
+            price:null,
+            status:null,
+            photo:null
+        };
+
+
+
+        vm.saveReward = function(){
+
+
+            $log.info('SubmitFunction');
+            var newReward = {
+                title:vm.newReward.title,
+                description:vm.newReward.description,
+                price:vm.newReward.price,
+                status:vm.newReward.status,
+                image:vm.newReward.photo
+            };
+            console.log(newReward);
+            RewardsResourceFactory.save(newReward,rewardSavedOnSuccess)
+        };
+
+        function rewardSavedOnSuccess(){
+            $log.info('Reward Saved Successfully')
+            $state.go('rewards');
+        }
+    }
+})();
+;(function(){
+    'use strict';
+
+    angular.module('app.rewards')
+        .controller('RewardDetailsCtrl',RewardDetailsCtrl);
+    RewardDetailsCtrl.$inject = [
+        '$log',
+        '$mdDialog',
+        '$mdMedia',
+        '$mdToast',
+        '$state',
+        'rewardsDetails',
+        'config',
+        'UriService',
+        'RewardsResourceFactory'
+    ];
+
+    function RewardDetailsCtrl(
+        $log,
+        $mdDialog,
+        $mdMedia,
+        $mdToast,
+        $state,
+        rewardsDetails,
+        config,
+        UriService,
+        RewardsResourceFactory
+    ){
+        $log.info('RewardDetailsCtrl');
+        var vm = this;
+        //Toast
+        var last = {
+            bottom: true,
+            top: false,
+            left: false,
+            right: true
+        };
+        vm.toastPosition = angular.extend({},last);
+        vm.getToastPosition = function(){
+            sanitizePosition();
+            return Object.keys(vm.toastPosition)
+                .filter(function(pos) { return vm.toastPosition[pos]; })
+                .join(' ');
+        };
+
+        function sanitizePosition() {
+            var current = vm.toastPosition;
+            if ( current.bottom && last.top ) current.top = false;
+            if ( current.top && last.bottom ) current.bottom = false;
+            if ( current.right && last.left ) current.left = false;
+            if ( current.left && last.right ) current.right = false;
+            last = angular.extend({},current);
+        }
+
+        vm.showNotificationToast = function(message) {
+            $log.info('ToastInitiated');
+            var pinTo = vm.getToastPosition();
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position(pinTo )
+                    .hideDelay(3000)
+            );
+        };
+
+        //View model
+
+
+        vm.rewardDetails = rewardsDetails;
+        vm.baseImageUrl = UriService.getImagePath(config.rewardImagePath)+vm.rewardDetails.imageUrl;
+        vm.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
+
+        vm.deleteReward = function(ev){
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure you would like to delete the reward ?')
+                .textContent('This action can not be undone ')
+                .ariaLabel('Lucky Loyal Day!')
+                .targetEvent(ev)
+                .ok('Please do it !')
+                .cancel('OPPs i changed my mind. dont delete it !');
+            $mdDialog.show(confirm).then(function(){
+                var params = {rewardId: vm.rewardDetails.id};
+                var deleteRewardById = RewardsResourceFactory.remove(params).$promise;
+                var message = 'Reward Deleted';
+                vm.showNotificationToast(message);
+                $state.go('rewards');
+            },function(){
+                $log.info('not');
+                var message = 'Reward Not Deleted';
+                vm.showNotificationToast(message);
+                vm.choice = 'Not Deleted'
+            })
+
+        }
+
+
+
     }
 })();
 ;(function(){
@@ -592,7 +778,31 @@ angular.module('app').directive('sidebar', function(){
                 controller:'NewRewardsCtrl as vm',
                 parent:'app',
                 templateUrl:'assets/templates/rewards/rewards.new.view.html'
-            });
+            })
+
+            .state('rewards.details',{
+                url:'/rewards/details/{rewardId}',
+                controller:'RewardDetailsCtrl as vm',
+                parent:'app',
+                templateUrl:'assets/templates/rewards/rewards.details.view.html',
+                resolve:{
+                    RewardsResourceFactory:'RewardsResourceFactory',
+                    'rewardsDetails':function(RewardsResourceFactory,$stateParams){
+                        return RewardsResourceFactory.get($stateParams).$promise;
+                    }
+                }
+            })
+
+            .state('rewards.delete',{
+                url:'/rewards/delete/{rewardId}',
+                resolve:{
+                    RewardsResourceFactory:'RewardsResourceFactory',
+                    'deleteReward':function(RewardsResourceFactory,$state,$stateParams){
+
+                    }
+                }
+
+            })
     }
 })();
 ;(function(){
@@ -925,8 +1135,17 @@ function ModalService(
             return uri;
         }
 
+        function getImagePath(path){
+            var protocol = config.api.protocol ? config.api.protocol : $location.protocol(),
+                host = config.api.host ? config.api.host : $location.host(),
+                uri = protocol + '://' + host + path + '/';
+
+            return uri;
+        }
+
         return {
-            getApi: getApi
+            getApi: getApi,
+            getImagePath: getImagePath
         }
 
     }
@@ -1005,7 +1224,7 @@ function ModalService(
         $stateProvider
     ){
         $stateProvider
-            .state('dashboard.clients',{
+            .state('dashboard.client',{
                 url:'/clients',
                 parent:'dashboard',
                 controller:'DashboardClientCtrl',
@@ -1079,7 +1298,7 @@ function ModalService(
         $stateProvider
     ){
         $stateProvider
-            .state('dashboard.owner',{
+            .state('dashboard.admin',{
                 url:'/owner',
                 parent:'dashboard',
                 controller:'DashboardOwnerCtrl',
@@ -1142,6 +1361,7 @@ function ModalService(
         function Reward(data){
 
             data = data || {};
+            this.id = data.id || null;
             this.title = data.title || null;
             this.description = data.description || null;
             this.imageUrl = data.imageUrl || null ;

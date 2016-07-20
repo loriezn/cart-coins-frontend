@@ -21,3 +21,7 @@ html,body{
     height: auto !important;
     position: absolute;
 }
+
+.md-toast {
+    z-index: 9999;
+}

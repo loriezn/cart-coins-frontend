@@ -7,7 +7,7 @@
             <h2>Rewards</h2>
         </div>
         <div class="col-xs-6">
-            <a ng-if="rvm.isMerchant" ui-sref="rewards.new" style="margin-top: 19px;" class="pull-right btn btn-primary uppercase"><i class="fa fa-gift"></i> Create Reward</a>
+            <md-button ng-if="rvm.isMerchant" ui-sref="rewards.new" style="margin-top: 19px;" class="pull-right md-raised md-primary uppercase"><i class="fa fa-gift"></i> Create Reward</md-button>
         </div>
     </div>
 </div>
@@ -33,9 +33,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="reward in vm.rewards">
+            <tr ng-repeat="reward in vm.rewards" ui-sref ="rewards.details({rewardId: reward.id})">
                 <td>{{reward.title}}</td>
-                <td>{{reward.description}}</td>
+                <td ng-bind-html="reward.description"></td>
                 <td>{{reward.status}}</td>
                 <td>{{reward.shop.shop_name}}</td>
                 <td>{{reward.price}}</td>

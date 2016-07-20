@@ -1,0 +1,36 @@
+<div class="content" id="">
+
+    <div class="content-header clearfix">
+        <div class="row">
+            <div class="col-xs-6">
+                <h2>Rewards</h2>
+            </div>
+            <div class="col-xs-6">
+                <md-button style="margin-top: 19px;" class="md-primary md-raised pull-right" ng-click="vm.deleteReward($event)" >
+                    Delete Reward
+                </md-button>
+                <!--<a ng-if="rvm.isMerchant" ng-click="vm.deleteReward($event)" style="margin-top: 19px;" class="pull-right btn btn-danger uppercase"><i class="fa fa-gift"></i> Delete Reward</a>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-primary">
+        <div class="box-header">
+            <h2 class="box-title">Reward Details</h2>
+
+        </div>
+        <div class="box-body">
+           <div class="row">
+               <div class="col-xs-4 pull-left">
+                   <img class="img-thumbnail img-responsive" src="{{vm.baseImageUrl}}" err-src="http://google.com/favicon.ico">
+               </div>
+               <div class="col-xs-6">
+                   <h3>Price:</h3><h4>{{vm.rewardDetails.price}} Coins</h4>
+                   <h3>Reward title:</h3><h4>{{vm.rewardDetails.title}}</h4>
+                   <h3>Description:</h3><p ng-bind-html="vm.rewardDetails.description"></p>
+               </div>
+           </div>
+        </div>
+    </div>
+
+</div>

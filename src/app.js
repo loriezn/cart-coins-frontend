@@ -9,6 +9,7 @@
         'ngResource',
         'ngMessages',
         'ngCookies',
+        'ngAnimate',
         'validation.match',
         'angularMoment',
         'angular-jsvat',
@@ -17,6 +18,9 @@
         'angular-cache',
         'angular-loading-bar',
         'monospaced.qrcode',
+        'textAngular',
+        'ngSanitize',
+        'ngMaterial',
         //Modules
         'app.auth',
         'app.dashboard',

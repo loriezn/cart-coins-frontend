@@ -6,42 +6,46 @@
         <div class="box-header">
             <h3 class="box-title">Create Reward</h3>
         </div>
-        <form role="form">
+        <form role="form" ng-submit="vm.saveReward()">
         <div class="box-body">
             <div class=" col-xs-6 form-group">
-                <label for="inputTitle">Title</label>
-                <input type="text" class="form-control" name="title"  id="inputTitle" placeholder="Reward title">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label for="inputTitle">Title</label>
+                    <input id="inputTitle" ng-model="vm.newReward.title">
+                </md-input-container>
             </div>
             <div class=" col-xs-6 form-group">
+                <md-input-container class="md-block" flex-gt-sm>
                 <label for="inputPrice">Price</label>
-                <input type="text" class="form-control" name="price" id="inputPrice" placeholder="Reward price">
+                <input  ng-model="vm.newReward.price" id="inputPrice">
+                </md-input-container>
             </div>
             <div class=" col-xs-12 form-group">
-                <label for="inputDescription">Price</label>
-                <textarea class="textarea" id="inputDescription" placeholder="Reward Description" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px;"></textarea>
+                <label for="inputDescription">Description</label>
+                <text-angular id="inputDescription" ng-model="vm.newReward.description"></text-angular>
+                <!--<textarea class="textarea" id="inputDescription" ng-model="vm.newReward.description" name="description" placeholder="Reward Description" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px;"></textarea>-->
             </div>
 
             <div class="col-xs-6 form-group">
-                <label>
-                    <input type="checkbox">
-                     Publish
-                </label>
+                <md-checkbox ng-model="vm.newReward.status" aria-label="Publish">
+                    Publish
+                </md-checkbox>
+                <!--<label>-->
+                    <!--<input type="checkbox" ng-model="">-->
+                     <!--Publish-->
+                <!--</label>-->
             </div>
 
             <div class="col-xs-12 form-group">
                 <label for="image">Upload Image</label>
-                <input type="file" id="image">
-
+                <input id="image" type="file" file-model="vm.newReward.photo">
                 <p class="help-block">Reward Image is optional</p>
             </div>
 
         </div>
             <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <md-button type="submit" class="md-raised md-primary">Submit</md-button>
             </div>
         </form>
     </div>
 </div>
-<script>
-    $('#inputDescription').wysihtml5();
-</script>
