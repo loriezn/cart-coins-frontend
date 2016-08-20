@@ -5,10 +5,13 @@
         .constant('config',{
             api:{
                 protocol: secure ? 'https' : 'http',
-                host: "cartcoins.api.local/",
+                host: "api.cartcoins.local/",
                 path: "/api/v1/",
             },
-            rewardImagePath:'RewardImageDirectory'
+            images:{
+                campaignImagePath:'uploads/campaign/'
+            }
+
         });
 
 })();

@@ -1,0 +1,38 @@
+<div class="content">
+    <div class="content-header">
+        <h3><i class="fa fa-gift"></i> Rewards</h3>
+    </div>
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Create Reward</h3>
+        </div>
+        <form name="createCampaign" ng-submit="vm.submitCampaign(createCampaign.$valid)" novalidate>
+            <div class="box-body">
+                <div class=" col-xs-6 form-group has-feedback" ng-class="{ 'has-error': createCampaign.title.$touched && createCampaign.title.$invalid }">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="inputTitle">Title</label>
+                        <input id="inputTitle" name="title" ng-model="vm.campaign.title" required>
+                    </md-input-container>
+
+                </div>
+                <div class=" col-xs-6 form-group has-feedback" ng-class="{ 'has-error': createCampaign.price.$touched && createCampaign.price.$invalid }">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="inputPrice">Price</label>
+                        <input  ng-model="vm.campaign.price" id="inputPrice" name="price" required>
+                    </md-input-container>
+                </div>
+
+                <div class="col-xs-12 form-group has-feedback" ng-class="{'has-error':createCampaign.image.$touched && createCampaign.image.$invalid}">
+                    <label for="image">Upload Image</label>
+                    <input id="image" type="file" name="image" ng-model="vm.campaign.image" file-model="vm.campaign.image" required>
+                    <p class="help-block">Upload Resources as Flyers</p>
+                </div>
+
+            </div>
+            <div class="box-footer">
+                <!--<button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="createCampaign.$invalid">Login</button>-->
+                <md-button type="submit" class="md-raised md-primary" ng-disabled="createCampaign.$invalid">Submit</md-button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -21,10 +21,11 @@
             return uri;
         }
 
-        function getImagePath(path){
+        function getImagePath(image){
             var protocol = config.api.protocol ? config.api.protocol : $location.protocol(),
                 host = config.api.host ? config.api.host : $location.host(),
-                uri = protocol + '://' + host + path + '/';
+                imageDir = config.images.campaignImagePath,
+                uri = protocol + '://' + host + imageDir ;
 
             return uri;
         }

@@ -16,15 +16,25 @@
                 url:'',
                 controller:'MainCtrl as rvm',
                 templateUrl:'assets/templates/layout/layout.view.html',
+                abstract: true,
                 resolve:{
                     AuthService:'AuthService',
                     UserResourceFactory:'UserResourceFactory',
-                    currentUser:function(AuthService,$log,UserResourceFactory){
+                    ShopResourceFactory:'ShopResourceFactory',
+                    currentUser:function(AuthService,UserResourceFactory){
                         var currentUser = AuthService.getUser();
                         var params = {
                             userId:currentUser.sub
                         };
                         return UserResourceFactory.get(params).$promise ;
+                    },
+                    userShops:function(AuthService,ShopResourceFactory){
+
+                        if(AuthService.getUser().roles[0].slug === 'client'){
+                            return false;
+                        }
+
+                        return ShopResourceFactory.query().$promise;
                     }
                 }
             })

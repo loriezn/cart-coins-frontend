@@ -39,7 +39,7 @@
         switch ($state.current.name)
         {
             case 'login':
-                AuthService.skipIfAuthenticated('dashboard.client');
+                AuthService.skipIfAuthenticated('dashboard');
                 vm.user = {
                     name:null,
                     email:null,
@@ -49,7 +49,7 @@
 
                 break;
             case 'register':
-                AuthService.skipIfAuthenticated('dashboard.client');
+                AuthService.skipIfAuthenticated('dashboard');
                 vm.newUser = {
                   name:null,
                   email:null,
@@ -88,9 +88,9 @@
             closeAlerts();
             $auth.setToken(response);
            var loggedUser =  AuthService.getUser();
-            if(loggedUser.role === 'admin'){
+            if(loggedUser.roles[0].slug === 'admin'){
                 $state.go('dashboard.admin')
-            }else if(loggedUser.role === 'merchant'){
+            }else if(loggedUser.roles[0].slug === 'shop'){
                 $state.go('dashboard.merchant')
             }else{
                 $state.go('dashboard.client');

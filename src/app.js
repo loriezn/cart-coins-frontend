@@ -27,7 +27,8 @@
         'app.services',
         'app.resources',
         'app.settings',
-        'app.rewards'
+        'app.rewards',
+        'app.campaigns'
 
 
     ]);
@@ -38,6 +39,7 @@
     angular.module('app.resources',[]);
     angular.module('app.settings',[]);
     angular.module('app.rewards',[]);
+    angular.module('app.campaigns',[]);
 
 
 

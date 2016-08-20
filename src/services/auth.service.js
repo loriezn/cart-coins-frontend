@@ -37,7 +37,14 @@
         function skipIfAuthenticated(state){
             var token = getToken();
             if(token){
-                $state.go(state);
+                var loggedUser = getUser();
+                if(loggedUser.roles[0].slug === 'admin'){
+                    $state.go(state+'.admin')
+                }else if(loggedUser.roles[0].slug === 'shop'){
+                    $state.go(state+'.merchant')
+                }else{
+                    $state.go(state+'.client');
+                }
             }
         }
 
@@ -52,7 +59,12 @@
             }
             StorageService.Local.remove('cartcoinsUser');
             StorageService.Local.remove('cartcoins_remember');
+            StorageService.Local.remove('cartcoinsUser_shops');
             $state.go('login');
+        }
+
+        function getShops(){
+            return StorageService.Local.get('cartcoinsUser_shops');
         }
 
         function getToken(){
@@ -78,7 +90,8 @@
             logOut: logOut,
             getUser: getUser,
             skipIfAuthenticated: skipIfAuthenticated,
-            getToken: getToken
+            getToken: getToken,
+            getShops: getShops
 
         };
     }

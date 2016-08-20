@@ -4,13 +4,13 @@
         .controller('SettingsCtrl',SettingsCtrl);
     SettingsCtrl.$inject = [
         '$log',
-        'shopData',
+        //'shopData',
         'ShopModelFactory'
     ];
 
     function SettingsCtrl(
         $log,
-        shopData,
+        //shopData,
         ShopModelFactory
     ){
         $log.info('SettingsCtrl');
@@ -21,9 +21,9 @@
          pvm.shops = [];
 
 
-        shopData.forEach(function(shop){
-            pvm.shops.push(new ShopModelFactory(shop));
-        });
+        //shopData.forEach(function(shop){
+        //    pvm.shops.push(new ShopModelFactory(shop));
+        //});
 
     }
 })();

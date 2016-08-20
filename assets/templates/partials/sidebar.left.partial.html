@@ -26,7 +26,7 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <li ui-sref-active-eq="active"><a ui-sref="dashboard.{{rvm.role}}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
-            <li ng-class="{active:$state.includes('campaigns')}" ng-if="rvm.isMerchant"><a ui-sref="#"><i class="fa fa-bullhorn"></i>Campaigns</a></li>
+            <li ng-class="{active:$state.includes('campaigns')}" ng-if="rvm.isMerchant"><a ui-sref="campaigns"><i class="fa fa-bullhorn"></i>Campaigns</a></li>
             <li ng-class="{active:$state.includes('rewards')}" ng-if="rvm.isMerchant"><a ui-sref="rewards"><i class="fa fa-gift"></i>Rewards</a></li>
             <li class="treeview" ng-class="{active: $state.includes('settings')}">
                 <a href="javascript:void(0)">
@@ -37,6 +37,11 @@
                     <li  ng-class="{active: $state.includes('*.shops.*.*')}" ng-if="rvm.isOwner">
                         <a ui-sref="settings.shops">
                             <i class="fa fa-shopping-basket"></i> <span>Shops</span>
+                        </a>
+                    </li>
+                    <li  ng-class="{active: $state.includes('*.system.*.*')}" ng-if="rvm.isOwner">
+                        <a ui-sref="settings.system">
+                            <i class="fa fa-cogs"></i> <span>System Settings</span>
                         </a>
                     </li>
                     <li ng-class="{active: $state.includes('*.loyalty.program')}" ng-if="rvm.isMerchant">

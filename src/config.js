@@ -22,7 +22,7 @@
         // Satellizer configuration
         $authProvider.tokenPrefix = 'cartcoins';
         $authProvider.baseUrl = config.api.protocol + '://' + config.api.host + config.api.path;
-        $authProvider.loginUrl = '/auth';
+        $authProvider.loginUrl = '/login';
         $authProvider.withCredentials = true;
 
         //Route Provider

@@ -17,13 +17,13 @@
                templateUrl:'assets/templates/settings/settings.view.html',
                parent:'app',
                abstract:true,
-               resolve:{
-                   ShopResourceFactory: 'ShopResourceFactory',
-                   shopData:function(ShopResourceFactory){
-                       return ShopResourceFactory.query().$promise;
-                   }
-
-               }
+               //resolve:{
+               //    ShopResourceFactory: 'ShopResourceFactory',
+               //    shopData:function(ShopResourceFactory){
+               //        return ShopResourceFactory.query().$promise;
+               //    }
+               //
+               //}
             });
     }
 

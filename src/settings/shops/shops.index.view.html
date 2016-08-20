@@ -24,26 +24,19 @@
             <tr>
                 <th>Shop Name</th>
                 <th>Country</th>
+                <th>State</th>
                 <th>City</th>
-                <th>Area</th>
-                <th>Vat Number</th>
-                <th>Phone Number</th>
-                <th>Email</th>
                 <th>Website</th>
-                <th>Business type</th>
+
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="shop in vm.shops">
-                <td>{{shop.shopName}}</td>
+                <td>{{shop.name}}</td>
                 <td>{{shop.country}}</td>
+                <td>{{shop.state}}</td>
                 <td>{{shop.city}}</td>
-                <td>{{shop.area}}</td>
-                <td>{{shop.vatNumber}}</td>
-                <td>{{shop.phoneNumber}}</td>
-                <td>{{shop.email}}</td>
                 <td>{{shop.website}}</td>
-                <td>{{shop.businessType.name}}</td>
             </tr>
             </tbody>
         </table>
